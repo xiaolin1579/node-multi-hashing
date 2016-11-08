@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose readDependencies using package.json deps
+5 verbose install where, deps [ '/home/user/code/node-multi-hashing', [ 'bindings' ] ]
+6 info preinstall multi-hashing@0.0.9
+7 verbose readDependencies using package.json deps
+8 verbose already installed skipping bindings@* /home/user/code/node-multi-hashing
+9 silly resolved []
+10 info build /home/user/code/node-multi-hashing
+11 verbose linkStuff [ false, false, false, '/home/user/code' ]
+12 info linkStuff multi-hashing@0.0.9
+13 verbose linkBins multi-hashing@0.0.9
+14 verbose linkMans multi-hashing@0.0.9
+15 verbose rebuildBundles multi-hashing@0.0.9
+16 verbose rebuildBundles [ 'bindings' ]
+17 info install multi-hashing@0.0.9
+18 verbose unsafe-perm in lifecycle true
+19 info multi-hashing@0.0.9 Failed to exec install script
+20 error multi-hashing@0.0.9 install: `node-gyp rebuild`
+20 error Exit status 1
+21 error Failed at the multi-hashing@0.0.9 install script.
+21 error This is most likely a problem with the multi-hashing package,
+21 error not with npm itself.
+21 error Tell the author that this fails on your system:
+21 error     node-gyp rebuild
+21 error You can get their info via:
+21 error     npm owner ls multi-hashing
+21 error There is likely additional logging output above.
+22 error System Linux 3.16.0-4-amd64
+23 error command "/usr/local/bin/node" "/usr/local/bin/npm" "install"
+24 error cwd /home/user/code/node-multi-hashing
+25 error node -v v0.10.33
+26 error npm -v 1.4.28
+27 error code ELIFECYCLE
+28 verbose exit [ 1, true ]

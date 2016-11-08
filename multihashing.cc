@@ -22,7 +22,8 @@ extern "C" {
     #include "nist5.h"
     #include "sha1.h",
     #include "x15.h"
-	#include "fresh.h"
+    #include "fresh.h"
+    #include "go-equihash/equi.h"
 }
 
 #include "boolberry.h"
@@ -33,6 +34,28 @@ using namespace v8;
 Handle<Value> except(const char* msg) {
     return ThrowException(Exception::Error(String::New(msg)));
 }
+
+Handle<Value> equihash(const Arguments& args) {
+    HandleScope scope;
+
+    if (args.Length() < 1)
+        return except("You must provide one argument.");
+
+    Local<Object> header = args[0]->ToObject();
+    Local<Object> solution = args[1]->ToObject();
+
+
+    if(!Buffer::HasInstance(header) || !Buffer::HasInstance(solution))
+        return except("Arguments should be buffer objects.");
+
+    GoSlice hdr = {.data=Buffer::Data(header), .len=Buffer::Length(header), .cap=Buffer::Length(header)};
+    GoSlice soln = {.data=Buffer::Data(solution), .len=Buffer::Length(solution), .cap=Buffer::Length(solution)};
+
+    return scope.Close(Boolean::New(CheckSoln(hdr, soln)));
+
+    //return scope.Close(Boolean::New(CheckSoln(hdr, soln)));
+}
+
 
 Handle<Value> quark(const Arguments& args) {
     HandleScope scope;
@@ -47,10 +70,8 @@ Handle<Value> quark(const Arguments& args) {
 
     char * input = Buffer::Data(target);
     char output[32];
-    
-    uint32_t input_len = Buffer::Length(target);
 
-    quark_hash(input, output, input_len);
+    //quark_hash(input, output);
 
     Buffer* buff = Buffer::New(output, 32);
     return scope.Close(buff->handle_);
@@ -133,7 +154,7 @@ Handle<Value> scryptn(const Arguments& args) {
 
 
    Buffer* buff = Buffer::New(output, 32);
-   return scope.Close(buff->handle_);
+   return scope.Close(Boolean::New(false));
 }
 
 Handle<Value> scryptjane(const Arguments& args) {
@@ -597,6 +618,8 @@ void init(Handle<Object> exports) {
     exports->Set(String::NewSymbol("sha1"), FunctionTemplate::New(sha1)->GetFunction());
     exports->Set(String::NewSymbol("x15"), FunctionTemplate::New(x15)->GetFunction());
     exports->Set(String::NewSymbol("fresh"), FunctionTemplate::New(fresh)->GetFunction());
+    exports->Set(String::NewSymbol("equihash"), FunctionTemplate::New(equihash)->GetFunction());
+
 }
 
 NODE_MODULE(multihashing, init)
