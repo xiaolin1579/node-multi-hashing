@@ -53,10 +53,21 @@
             ],
             "include_dirs": [
                 "crypto",
+                "go_equihash",
+                "go_equihash/src/equi"
             ],
             "cflags_cc": [
-                "-std=c++0x"
+                "-std=c++0x",
+                "-Wl,--whole-archive",
+                "-static",
+                "-fPIC",
             ],
+            "link_settings": {
+                "libraries": [
+                    "<(module_root_dir)/go-equihash/libequi.so",
+                    "<(module_root_dir)/go-equihash/libequihash.so",
+                ],
+            },
         }
     ]
 }
