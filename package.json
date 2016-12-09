@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/joshuayabut/node-multi-hashing.git"
+        "url": "https://github.com/xiaolin1579/node-multi-hashing.git"
     },
     "dependencies" : {
         "bindings" : "*"
@@ -17,6 +17,7 @@
         "scrypt",
         "scryptjane",
         "script-n",
+        "lyre2re",
         "x11",
         "quark",
         "keccak_hash",
