@@ -1,4 +1,4 @@
-/*
+/**
  * Header file for the Lyra2 Password Hashing Scheme (PHS).
  * 
  * Author: The Lyra PHC team (http://www.lyra-kdf.net/) -- 2014.
