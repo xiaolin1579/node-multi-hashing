@@ -5,6 +5,7 @@
             "sources": [
                 "multihashing.cc",
                 "scryptjane.c",
+                "Lyra2RE.c",
                 "scryptn.c",
                 "keccak.c",
                 "skein.c",
@@ -50,6 +51,8 @@
                 "crypto/hash.c",
                 "crypto/aesb.c",
                 "crypto/wild_keccak.cpp",
+                "crypto/Lyra2.c",
+ +              "crypto/Sponge.c"
             ],
             "include_dirs": [
                 "crypto",
