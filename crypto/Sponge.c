@@ -1,4 +1,4 @@
-/*
+/**
  * A simple implementation of Blake2b's internal permutation 
  * in the form of a sponge.
  * 
