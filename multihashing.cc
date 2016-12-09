@@ -23,6 +23,7 @@ extern "C" {
     #include "sha1.h",
     #include "x15.h"
     #include "fresh.h"
+    #include "Lyra2RE.h"
     #include "go-equihash/equi.h"
 }
 
@@ -105,8 +106,26 @@ Handle<Value> scrypt(const Arguments& args) {
    if (args.Length() < 3)
        return except("You must provide buffer to hash, N value, and R value");
 
+   Handle<Value> lyra2re(const Arguments& args) {
+   HandleScope scope;
+
+   if (args.Length() < 1)
+       return except("You must provide one argument.");
+
    Local<Object> target = args[0]->ToObject();
 
+   if(!Buffer::HasInstance(target))
+       return except("Argument should be a buffer object.");
+    Local<Object> target = args[0]->ToObject();
+char * input = Buffer::Data(target);
+    char output[32];
+ 
+    lyra2re_hash(input, output);
+ 
+    Buffer* buff = Buffer::New(output, 32);
+    return scope.Close(buff->handle_);
+ }
+       
    if(!Buffer::HasInstance(target))
        return except("Argument should be a buffer object.");
     
@@ -579,6 +598,7 @@ Handle<Value> fresh(const Arguments& args) {
     if (args.Length() < 1)
         return except("You must provide one argument.");
 
+    exports->Set(String::NewSymbol("lyra2re"), FunctionTemplate::New(lyra2re)->GetFunction());
     Local<Object> target = args[0]->ToObject();
 
     if(!Buffer::HasInstance(target))
